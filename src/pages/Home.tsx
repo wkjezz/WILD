@@ -18,24 +18,28 @@ export default function Home(){
 
   // Random sticker from assets/stickers/*
   const stickerSrc = useMemo(() => {
-    const stickers = [
-      new URL('../assets/stickers/Butterfly.png', import.meta.url).href,
-      new URL('../assets/stickers/Diamond Ring.png', import.meta.url).href,
-      new URL('../assets/stickers/Heart.png', import.meta.url).href,
-      new URL('../assets/stickers/Fire Heart.png', import.meta.url).href,
-      new URL('../assets/stickers/Star.png', import.meta.url).href,
-      new URL('../assets/stickers/Flower.png', import.meta.url).href,
-      new URL('../assets/stickers/Card.png', import.meta.url).href,
-      new URL('../assets/stickers/Dice.png', import.meta.url).href,
-      new URL('../assets/stickers/Phone.png', import.meta.url).href,
-      new URL('../assets/stickers/Lipstick.png', import.meta.url).href,
-      new URL('../assets/stickers/Tamagotchi.png', import.meta.url).href,
-      new URL('../assets/stickers/Thunder.png', import.meta.url).href,
-      new URL('../assets/stickers/Glasses.png', import.meta.url).href,
-      new URL('../assets/stickers/Radío.png', import.meta.url).href).replace('%C3%AD','i') // safety if filename seen different
-    ].filter(Boolean);
-
-    return stickers[Math.floor(Math.random() * stickers.length)];
+    const pool = [
+      'Butterfly.png',
+      'Diamond Ring.png',
+      'Heart.png',
+      'Fire Heart.png',
+      'Star.png',
+      'Flower.png',
+      'Card.png',
+      'Dice.png',
+      'Phone.png',
+      'Lipstick.png',
+      'Tamagotchi.png',
+      'Thunder.png',
+      'Glasses.png',
+      'Radio.png',
+      'Mouth.png',
+      'Shoes.png',
+      'Hair Clip.png',
+      'Eye.png',
+    ];
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    return new URL(`../assets/stickers/${pick}`, import.meta.url).href;
   }, []);
 
   return (
