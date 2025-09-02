@@ -1,154 +1,145 @@
-.home-wrap{
-  display:flex; flex-direction:column; gap:16px;
-}
-.home-hero h1{
-  font-family: 'Press Start 2P', cursive;
-  font-size: 20px;
-  margin: 0 0 6px 0;
-}
-.home-hero p{
-  margin: 0 0 6px 0;
-  font-family: 'Chakra Petch', system-ui, sans-serif;
+/* ===== HOME PAGE ===== */
+
+.home-wrap {
+  padding-block: 8px 0;
 }
 
-/* Volume card — solid, crisp */
-.volumeCard{
+.home-hero {
+  text-align: left;
+  margin: 0 0 8px;
+}
+
+.home-hero h1 {
+  margin: 0 0 6px;
+  font-size: clamp(28px, 2.6vw, 36px);
+}
+
+.home-hero p {
+  margin: 0;
+  opacity: .85;
+}
+
+/* Current Volume card */
+.volumeCard {
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(30, 10, 60, 0.12), 0 2px 8px rgba(30, 10, 60, 0.06);
+  margin: 10px 0 0;
+  padding: 18px 20px;
+}
+
+.volumeStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.volumeStack--centered {
+  align-items: center;
+}
+
+.volTitle {
+  font-family: "Press Start 2P", system-ui, sans-serif;
+  letter-spacing: 1px;
+  margin: 0;
+  text-align: center;
+}
+
+.date {
+  margin: 4px 0 8px;
+  font-size: clamp(13px, 1.2vw, 14px);
+  opacity: .8;
+  text-align: center;
+}
+
+/* Cover + sticker */
+.coverWrap {
   position: relative;
   border-radius: 14px;
-  background: #fff;
-  padding: 22px 22px 26px;
   overflow: hidden;
-  box-shadow: 0 10px 26px rgba(0,0,0,.12);
-  min-height: 560px;
-}
-.volumeCard::before{ content: none; }
-.volumeCard--solid{ background: #fff; }
-
-/* Centered stack */
-.volumeStack{
-  display:flex;
-  flex-direction:column;
-  gap: 10px;
-  max-width: 980px;
-}
-.volumeStack--centered{
-  align-items: center;
-  text-align: center;
-  margin: 0 auto;
+  width: clamp(220px, 28vw, 360px);
+  aspect-ratio: 3 / 4; /* keeps height proportional without stretching */
+  box-shadow: 0 10px 26px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
 }
 
-.volTitle{
-  margin: 0;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 20px;
-}
-.date{
-  margin: -2px 0 8px 0;
-  font-family: 'Chakra Petch', system-ui, sans-serif;
-  font-size: 14px;
-  letter-spacing: .2px;
-  opacity: .9;
-}
-
-/* Cover + sticker pin */
-.coverWrap{
-  position: relative;
-  display: inline-block;
-  margin: 6px 0 12px 0;
-}
-.volumeCover{
-  width: clamp(260px, 60vw, 460px);
-  max-width: 100%;
-  aspect-ratio: 3 / 4;
+.volumeCover {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.16);
+  display: block;
 }
 
-/* Responsive random sticker "pin" */
-.stickerPin{
-  position: absolute;
-  width: clamp(38px, 10vw, 70px);
-  height: auto;
-  top: clamp(-16px, -2vw, -8px);
-  left: clamp(-14px, -2vw, -6px);
-  transform: rotate(-10deg);
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,.3)) saturate(1.1) brightness(1.04);
-  pointer-events: none;
-}
-
-/* Subtle gel/gloss */
+/* gel gloss */
 .coverGloss{
-  content:'';
-  position:absolute;
-  left: 8%;
-  top: 7%;
-  width: 58%;
-  height: 58%;
+  position:absolute; inset:0;
+  background: linear-gradient(20deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,0) 40%);
   pointer-events:none;
-  border-radius: 16px;
-  background: radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,.42), rgba(255,255,255,0) 60%);
-  mix-blend-mode: screen;
 }
 
-/* Blurb list: keep readable while centered layout */
+/* sticker "pin" with slight gel & shadow */
+.stickerPin{
+  position:absolute;
+  top: -10px;
+  left: 50%;
+  transform: translate(-50%,-35%) rotate(-10deg);
+  width: clamp(44px, 7vw, 64px);
+  filter:
+    drop-shadow(0 6px 10px rgba(0,0,0,.18))
+    drop-shadow(0 1px 2px rgba(0,0,0,.12));
+  user-select:none;
+  pointer-events:none;
+}
+
+/* blurb */
 .blurbList{
-  margin: 4px auto 14px auto;
-  padding: 0 0 0 18px;
-  font-family: 'Chakra Petch', system-ui, sans-serif;
-  line-height: 1.6;
-  width: min(90%, 720px);
-  text-align: left;
+  width: min(680px, 88%);
+  margin: 8px auto 0;
+  padding-left: 1.2rem;
+  font-size: clamp(14px, 1.25vw, 16px);
+  line-height: 1.45;
+  list-style: disc;
 }
 
-/* READ centered */
+/* read button */
 .readRow{
+  margin-top: 10px;
   display:flex;
   justify-content:center;
-  margin-top: 8px;
 }
 
-/* Bubble READ button */
 .readBtn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
+  padding: 10px 26px;
+  border-radius: 999px;
+  font-family: "Press Start 2P", system-ui, sans-serif;
+  font-size: 14px;
   text-decoration:none;
-  border:0;
-  cursor:pointer;
-
-  font-family:'Press Start 2P', cursive;
-  font-size:12px;
-  letter-spacing:.5px;
-  padding:14px 28px;
-  border-radius:999px;
   color:#fff;
-
-  background: linear-gradient(135deg,#FF2E9F 0%, #8A2EFF 55%, #00C2FF 100%);
-  box-shadow:
-    inset 0 2px 6px rgba(255,255,255,.65),
-    inset 0 -3px 8px rgba(0,0,0,.25),
-    0 8px 22px rgba(0,0,0,.20);
-
-  transition: transform .12s ease, box-shadow .15s ease, filter .2s ease;
+  background: linear-gradient(135deg, #ff6ad5, #7aa2ff);
+  box-shadow: 0 10px 24px rgba(122,162,255,.28), inset 0 2px 0 rgba(255,255,255,.45);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
 }
+
 .readBtn:hover{
   transform: translateY(-1px);
-  box-shadow:
-    inset 0 3px 8px rgba(255,255,255,.75),
-    inset 0 -4px 10px rgba(0,0,0,.3),
-    0 12px 26px rgba(0,0,0,.25);
+  box-shadow: 0 16px 28px rgba(122,162,255,.34), inset 0 2px 0 rgba(255,255,255,.55);
+  filter: saturate(1.08);
 }
 
-/* Mobile tweaks */
-@media (max-width: 700px){
-  .volumeCard{ min-height: 0; }
-  .volumeCover{
-    width: min(100%, 460px);
-    aspect-ratio: 4 / 3;
-  }
-  .stickerPin{
-    top: clamp(-14px, -4vw, -8px);
-    left: clamp(-10px, -3vw, -6px);
-  }
+/* -------- Height-aware compaction (desktop <=1080px tall) -------- */
+@media (min-width: 900px) and (max-height: 1080px){
+  .home-hero { margin-bottom: 4px; }
+  .volumeCard { padding: 14px 16px; }
+  .coverWrap { width: clamp(220px, 24vw, 320px); }
+  .blurbList { width: min(620px, 86%); }
+  .readRow { margin-top: 8px; }
+}
+
+/* Extra tight guard if needed around 900–1080h */
+@media (min-width: 900px) and (max-height: 1000px){
+  .coverWrap { width: clamp(220px, 22vw, 300px); }
+  .blurbList { font-size: clamp(13px, 1.05vw, 15px); }
 }
