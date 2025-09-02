@@ -47,7 +47,7 @@ export default function Home(){
   }, []);
 
   // injected by script: current volume image + alt
-  const imageSrc = ((current as any).imageBase64 ?? current.imageUrl ?? (current as any).image ?? "");
+  const imageSrc = (current?.imageBase64 ?? current?.imageUrl ?? current?.image ?? "");
   const alt = `WILD Volume ${current?.volumeNumber ?? current?.volume ?? ""}`;
 
   return (
