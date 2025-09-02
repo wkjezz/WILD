@@ -71,12 +71,6 @@
 }
 
 /* gel gloss */
-.coverGloss{
-  position:absolute; inset:0;
-  background: linear-gradient(20deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,0) 40%);
-  pointer-events:none;
-}
-
 /* sticker "pin" with slight gel & shadow */
 .stickerPin{
   position:absolute;
@@ -143,3 +137,51 @@
   .coverWrap { width: clamp(220px, 22vw, 300px); }
   .blurbList { font-size: clamp(13px, 1.05vw, 15px); }
 }
+/* BEGIN: STICKER-GLOSS */
+/* Sticker wrapper (positions + scales the sticker; holds the gloss) */
+.stickerWrap{
+  position:absolute;
+  top: -10px;
+  left: 50%;
+  transform: translate(-50%,-35%) rotate(-10deg);
+  width: clamp(44px, 7vw, 64px);
+  user-select:none;
+  pointer-events:none;
+  /* subtle, layered shadow for a pinned look */
+  filter:
+    drop-shadow(0 6px 10px rgba(0,0,0,.18))
+    drop-shadow(0 1px 2px rgba(0,0,0,.12));
+}
+
+/* Sticker image fills the wrapper */
+.stickerPin{
+  display:block;
+  width: 100%;
+  height: auto;
+}
+
+/* Gloss lives on the sticker (not the cover) */
+.stickerGloss{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius: 10%;
+  mix-blend-mode: screen;
+  opacity: .9;
+  background:
+    /* big soft bubble highlight */
+    radial-gradient(60% 60% at 35% 28%, rgba(255,255,255,.65) 0 35%, rgba(255,255,255,0) 60%),
+    /* tighter specular spot */
+    radial-gradient(18% 18% at 70% 35%, rgba(255,255,255,.85) 0 35%, rgba(255,255,255,0) 60%),
+    /* faint lower sheen */
+    radial-gradient(70% 70% at 20% 80%, rgba(255,255,255,.20) 0 40%, rgba(255,255,255,0) 65%);
+}
+
+/* Responsive tweak for small screens */
+@media (max-width: 700px){
+  .stickerWrap{
+    top: clamp(-14px, -4vw, -8px);
+    transform: translate(-50%,-40%) rotate(-10deg);
+  }
+}
+/* END: STICKER-GLOSS */

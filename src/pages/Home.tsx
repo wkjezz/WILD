@@ -64,14 +64,15 @@ export default function Home(){
                 src={current.imageUrl}
                 alt={`WILD Volume ${current.volumeNumber} cover`}
               />
-              <img
+              <span className="stickerWrap" aria-hidden="true">
+    <img
                 className="stickerPin"
                 src={stickerSrc}
                 alt=""
                 aria-hidden="true"
               />
-              <span className="coverGloss" aria-hidden="true"></span>
-            </div>
+    <span className="stickerGloss"></span>
+  </span></div>
 
             <ul className="blurbList">
               {current.blurb.map((item, i)=> <li key={i}>{item}</li>)}
