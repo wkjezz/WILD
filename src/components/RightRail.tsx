@@ -1,5 +1,5 @@
-import React from "react";
 import "./RightRail.css";
+import { POLAROID_IMG } from "../assets/polaroid-img";
 
 export default function RightRail() {
   return (
@@ -7,15 +7,11 @@ export default function RightRail() {
       {/* Polaroid */}
       <div className="polaroid tiltLeft">
         <div className="polaroidTape" aria-hidden />
-        <img
-          className="polaroidPhoto"
-          src="https://i.ibb.co/Q32BXMX4/image.png"
-          alt="Mr Softy Top"
-        />
+        <img className="polaroidPhoto" src={POLAROID_IMG} alt="Mr Softy Top" />
         <div className="polaroidCaption">Mr Softy Top</div>
       </div>
 
-      {/* Post-it (Upcoming Event) */}
+      {/* Post-it */}
       <div className="postit tiltRight">
         <h3>UPCOMING EVENT!</h3>
         <p>Newsletter or trending feed.</p>

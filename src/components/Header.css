@@ -378,3 +378,50 @@
 .header + .rail.mainRow{ margin-top: 0 !important; }
 .nav{ margin-bottom: 0 !important; }
 
+
+/* --- prevent the nav glow from creating page scroll --- */
+.header{
+  /* Clip any blur/glow that might extend below the header */
+  overflow: clip;                 /* modern; falls back to hidden behavior */
+}
+
+/* keep a little breathing room inside the header so the glow isn't cut off */
+.header .headerInner{
+  padding-bottom: 12px !important;  /* enough room for the glow, but not too much */
+}
+
+/* soften the glow slightly so it stays inside the header box comfortably */
+.nav .tab::before{
+  inset: -4px;                     /* was -6px */
+  filter: blur(8px);               /* was 10–12px; less bleed = no scroll */
+}
+
+/* keep the glitter intensity from the last change, but make sure it shows */
+.header .nav .tab::after{
+  background:
+    radial-gradient(circle at 30% 35%, rgba(255,122,214,.85) 0 3px, rgba(255,122,214,0) 4px) repeat,
+    radial-gradient(circle at 70% 65%, rgba(255,179,234,.75) 0 3px, rgba(255,179,234,0) 4px) repeat;
+  background-size: 95px 95px, 120px 120px;
+}
+
+/* force animation on active bubble only (in case an !important elsewhere disabled it) */
+.header .nav .tab.active::after{
+  opacity:.78 !important;
+  animation: dotDrift 18s linear infinite, dotPulse 8s ease-in-out infinite !important;
+  will-change: background-position, opacity;
+}
+
+/* non-active bubbles never animate */
+.header .nav .tab:not(.active)::after{
+  animation: none !important;
+}
+
+/* safety: if some device/browser still calculates blur as overflow height, trim it */
+html, body{
+  overflow-x: hidden;              /* already set earlier, keep it */
+}
+
+/* OPTIONAL: if you still see a 1px vertical scrollbar on some devices,
+   uncomment the next line to hard-clip the page. Use only if needed. */
+/* body{ overflow-y: auto; overflow-clip-margin: content-box; } */
+
