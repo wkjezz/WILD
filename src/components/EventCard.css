@@ -1,0 +1,45 @@
+.eventCard{
+  position: relative;
+  border-radius: 12px;
+  background: #d9ecff; /* blue post-it */
+  padding: 10px 12px 12px;
+  overflow: hidden;
+}
+
+/* faint monochrome flyer across the whole card */
+.eventCard::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: var(--flyer);
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%) contrast(1.05) brightness(1.05);
+  opacity: .08;
+  pointer-events: none;
+}
+
+.eventTitle{
+  margin: 0 0 6px 0;
+  font-family: 'Press Start 2P', system-ui, monospace;
+  font-size: 12px;
+}
+.eventMeta{
+  display:flex; flex-direction:column; gap:2px;
+  margin-bottom: 6px;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+  font-size: 13px;
+}
+.eventDT{ font-weight: 600; }
+.eventLoc{ opacity: .9; }
+.eventDesc{
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  line-height: 1.4;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+}
+.eventContact{
+  margin: 0;
+  font-size: 12px;
+  opacity: .85;
+}
+.eventEmpty{ margin: 0; font-size: 12px; opacity: .8; }

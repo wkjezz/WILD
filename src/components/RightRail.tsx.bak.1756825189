@@ -1,5 +1,3 @@
-import EventCard from "./EventCard";
-import "./EventCard.css";
 import "./RightRail.css";
 import { POLAROID_IMG } from "../assets/polaroid-img";
 
