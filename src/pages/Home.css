@@ -11,65 +11,101 @@
   font-family: 'Chakra Petch', system-ui, sans-serif;
 }
 
-/* Volume card — solid (no faded overlay) and roomier */
+/* Volume card — solid, crisp */
 .volumeCard{
   position: relative;
   border-radius: 14px;
   background: #fff;
-  padding: 20px;
+  padding: 22px 22px 26px;
   overflow: hidden;
   box-shadow: 0 10px 26px rgba(0,0,0,.12);
-  min-height: 560px; /* keeps it substantial */
+  min-height: 560px;
 }
-.volumeCard::before{ content: none; } /* kill the faded overlay */
+.volumeCard::before{ content: none; }
 .volumeCard--solid{ background: #fff; }
 
-/* Stacked content */
+/* Centered stack */
 .volumeStack{
   display:flex;
   flex-direction:column;
   gap: 10px;
-  max-width: 960px;
+  max-width: 980px;
+}
+.volumeStack--centered{
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .volTitle{
   margin: 0;
   font-family: 'Press Start 2P', cursive;
-  font-size: 18px;
+  font-size: 20px;
 }
 .date{
-  margin: -2px 0 6px 0;
+  margin: -2px 0 8px 0;
   font-family: 'Chakra Petch', system-ui, sans-serif;
   font-size: 14px;
   letter-spacing: .2px;
-  opacity: .85;
+  opacity: .9;
 }
 
-/* Cover image: large and clean */
+/* Cover + sticker pin */
+.coverWrap{
+  position: relative;
+  display: inline-block;
+  margin: 6px 0 12px 0;
+}
 .volumeCover{
-  width: clamp(260px, 55%, 420px);
+  width: clamp(260px, 60vw, 460px);
   max-width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,.16);
-  margin: 6px 0 10px 0;
 }
 
-/* Blurb list */
+/* Responsive random sticker "pin" */
+.stickerPin{
+  position: absolute;
+  width: clamp(38px, 10vw, 70px);
+  height: auto;
+  top: clamp(-16px, -2vw, -8px);
+  left: clamp(-14px, -2vw, -6px);
+  transform: rotate(-10deg);
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.3)) saturate(1.1) brightness(1.04);
+  pointer-events: none;
+}
+
+/* Subtle gel/gloss */
+.coverGloss{
+  content:'';
+  position:absolute;
+  left: 8%;
+  top: 7%;
+  width: 58%;
+  height: 58%;
+  pointer-events:none;
+  border-radius: 16px;
+  background: radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,.42), rgba(255,255,255,0) 60%);
+  mix-blend-mode: screen;
+}
+
+/* Blurb list: keep readable while centered layout */
 .blurbList{
-  margin: 0 0 14px 18px;
-  padding: 0;
+  margin: 4px auto 14px auto;
+  padding: 0 0 0 18px;
   font-family: 'Chakra Petch', system-ui, sans-serif;
   line-height: 1.6;
-  max-width: 68ch;
+  width: min(90%, 720px);
+  text-align: left;
 }
 
-/* READ centered under the stack */
+/* READ centered */
 .readRow{
   display:flex;
   justify-content:center;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 /* Bubble READ button */
@@ -108,7 +144,11 @@
 @media (max-width: 700px){
   .volumeCard{ min-height: 0; }
   .volumeCover{
-    width: min(100%, 420px);
+    width: min(100%, 460px);
     aspect-ratio: 4 / 3;
+  }
+  .stickerPin{
+    top: clamp(-14px, -4vw, -8px);
+    left: clamp(-10px, -3vw, -6px);
   }
 }
