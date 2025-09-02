@@ -142,3 +142,41 @@ main{ display:flex; flex-direction:column; min-height:0; }
 
 /* === Extra Font for Polaroid (handwritten vibe) === */
 html, body{overflow-x:hidden;}
+
+/* BEGIN: VH-CAPS */
+/* Space reserved for header + gaps + footer (tweak to taste) */
+:root{
+  --vh-pad: 220px;
+}
+
+/* A touch more padding on small screens */
+@media (max-width: 900px){
+  :root{ --vh-pad: 260px; }
+}
+
+/* Make the main grid align from the top (no stretching) */
+.mainRow{
+  align-items: start;
+}
+
+/* Cap the main column height and allow internal scroll */
+.mainRow > main{
+  max-height: calc(100vh - var(--vh-pad));
+}
+
+.pageCard{
+  max-height: calc(100vh - var(--vh-pad));
+  overflow: auto;                 /* scroll inside the card if content exceeds */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Cap the right rail and let it scroll inside if needed */
+.rightRail{
+  max-height: calc(100vh - var(--vh-pad));
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Keep any tiny horizontal overflow hidden (tilts/glows etc.) */
+html, body{ overflow-x: hidden; }
+/* END: VH-CAPS */
