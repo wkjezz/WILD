@@ -17,7 +17,7 @@ type Volume = {
 
 export default function Home(){
   // pick latest by volumeNumber
-  const list = (volumes as AnyVolume[]).slice().sort((a,b)=> b.volumeNumber - a.volumeNumber);
+  const list = (volumes as Volume[]).slice().sort((a,b)=> b.volumeNumber - a.volumeNumber);
   const current = list[0];
 
   // Random sticker from assets/stickers/*
@@ -97,10 +97,3 @@ export default function Home(){
     </div>
   );
 }
-
-// ---- relaxed type to cover JSON fields not in Volume ----
-type AnyVolume = Volume & {
-  volume?: number;
-  imageBase64?: string;
-  image?: string;
-};
