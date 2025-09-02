@@ -17,6 +17,8 @@
       "vite/client",
       "react",
       "react-dom"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   }
 }

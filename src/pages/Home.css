@@ -1,0 +1,104 @@
+.home-wrap{
+  display:flex; flex-direction:column; gap:16px;
+}
+.home-hero h1{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  margin: 0 0 6px 0;
+}
+.home-hero p{
+  margin: 0 0 6px 0;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+}
+
+/* Volume card */
+.volumeCard{
+  position: relative;
+  border-radius: 14px;
+  background: #fff;
+  padding: 14px;
+  overflow: hidden;
+  /* background image from JSON */
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+}
+
+/* subtle inner veil so text reads over bg */
+.volumeCard::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.8));
+  pointer-events:none;
+}
+
+/* content layer */
+.volumeInner{
+  position: relative;
+  display:grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* cover image */
+.volumeCover{
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 10px;
+  display:block;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+/* details */
+.volumeDetails h3{
+  margin: 0 0 8px 0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  display:flex; flex-wrap:wrap; gap:8px; align-items:baseline;
+}
+.volumeDetails .date{
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+  font-size: 14px;
+  letter-spacing: .2px;
+}
+
+.volumeDetails ul{
+  margin: 0 0 12px 18px;
+  padding: 0;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* Read button styled like nav bubble */
+.readBtn{
+  display:inline-block;
+  border:0;
+  cursor:pointer;
+  text-decoration:none;
+  font-family:'Press Start 2P', cursive;
+  font-size:12px;
+  padding:12px 20px;
+  border-radius:999px;
+  color:#fff;
+  background: linear-gradient(135deg,#FF2E9F 0%, #8A2EFF 55%, #00C2FF 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,.65),
+    inset 0 -3px 8px rgba(0,0,0,.25),
+    0 6px 16px rgba(0,0,0,.20);
+  transition: transform .12s ease, box-shadow .15s ease, filter .2s ease;
+}
+.readBtn:hover{
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 3px 8px rgba(255,255,255,.75),
+    inset 0 -4px 10px rgba(0,0,0,.3),
+    0 10px 22px rgba(0,0,0,.25);
+}
+
+/* responsive stack */
+@media (max-width: 700px){
+  .volumeInner{ grid-template-columns: 1fr; }
+  .volumeCover{ aspect-ratio: 4 / 3; }
+}
