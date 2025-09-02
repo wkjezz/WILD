@@ -30,14 +30,15 @@ export default function Home(){
           <div className="volumeInner">
             <img className="volumeCover" src={current.imageUrl} alt={`WILD Volume ${current.volumeNumber} cover`} />
             <div className="volumeDetails">
-              <h3>
-                Current Volume! <span className="date">{current.date}</span>
-              </h3>
+              <h3 className="volTitle">Current Volume!</h3>
+              <p className="date">{current.date}</p>
+
               <ul>
                 {current.blurb.map((item, i)=> <li key={i}>{item}</li>)}
               </ul>
+
               <a className="readBtn" href={current.volumeUrl} rel="noopener noreferrer">
-                Read
+                READ
               </a>
             </div>
           </div>
