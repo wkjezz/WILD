@@ -1,7 +1,3 @@
-/* TODO(cv-tilt): Replace your existing cover image element with:
-   <CoverTilt src={imageSrc} alt={alt} />
-*/
-import CoverTilt from "../components/CoverTilt";
 import { useMemo } from 'react';
 import './Home.css';
 import volumes from '../data/volumes.json';
