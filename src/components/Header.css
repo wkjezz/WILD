@@ -425,3 +425,87 @@ html, body{
    uncomment the next line to hard-clip the page. Use only if needed. */
 /* body{ overflow-y: auto; overflow-clip-margin: content-box; } */
 
+
+/* BEGIN: NAV-GLITTER-HEARTS */
+/* Make sure pill clips its effects */
+.nav .tab{
+  position: relative;
+  border-radius: 999px;
+  overflow: hidden;                 /* <- keeps glitter/glow INSIDE */
+  isolation: isolate;               /* contain stacking contexts */
+}
+
+/* Outer glow (tightened so it lives inside the pill) */
+.nav .tab::before{
+  content:"";
+  position:absolute; inset: -2px;   /* shallow so it won’t bleed */
+  border-radius: inherit;
+  background: radial-gradient(120px 120px at 20% 20%, rgba(0,255,255,.18), transparent 60%),
+              radial-gradient(140px 140px at 80% 80%, rgba(255,0,255,.18), transparent 65%);
+  filter: blur(8px);
+  opacity: .9;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Glitter overlay — only obvious on active */
+@keyframes glitterDrift{
+  0%   { background-position:   0px 0px,   0px 0px,   0px 0px; }
+  100% { background-position: 140px 0px, -110px 0px, 0px -140px; }
+}
+@keyframes glitterPulse{
+  0%,100%{ opacity:.70 }
+  50%    { opacity:.92 }
+}
+
+/* default: subtle / off */
+.nav .tab::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  z-index: 1;                       /* above base, below label */
+  pointer-events: none;
+  opacity: .0;
+  background:
+    radial-gradient(circle at 20% 35%, rgba(255,122,214,.9) 0 3px, rgba(255,122,214,0) 4px),
+    radial-gradient(circle at 70% 60%, rgba(255,179,234,.8) 0 3px, rgba(255,179,234,0) 4px),
+    radial-gradient(circle at 45% 75%, rgba(255,143,223,.65) 0 2.5px, rgba(255,143,223,0) 3.5px);
+  background-size: 90px 90px, 110px 110px, 95px 95px;
+  background-repeat: repeat;
+  mask: linear-gradient(#000, #000); /* ensure full coverage, no edge bleed */
+}
+
+/* ACTIVE: brighter, animated, still clipped */
+.nav .tab.active::after{
+  opacity: .88 !important;
+  animation: glitterDrift 16s linear infinite, glitterPulse 8s ease-in-out infinite;
+}
+
+/* Label hearts — reserve width so buttons don’t jump */
+.nav .tab .label{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;                       /* above glitter */
+  letter-spacing: .06em;            /* keeps that arcade vibe */
+  text-transform: uppercase;        /* matches your style */
+}
+
+/* Hearts exist always (opacity 0) so width stays constant */
+.nav .tab .label::before,
+.nav .tab .label::after{
+  content: "❤";
+  font-size: .9em;
+  line-height: 1;
+  color: #ff66d6;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+/* Show hearts only on active */
+.nav .tab.active .label::before,
+.nav .tab.active .label::after{
+  opacity: 1;
+}
+/* END: NAV-GLITTER-HEARTS */
