@@ -1,4 +1,4 @@
-import React from 'react'
+
 import PageCard from '../PageCard'
 import './Partners.css'
 

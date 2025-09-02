@@ -1,4 +1,4 @@
-import React from "react";
+
 import Header from "./components/Header";
 import RightRail from "./components/RightRail";
 import Footer from "./components/Footer";

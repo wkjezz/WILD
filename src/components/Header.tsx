@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import "./Header.css";
 import { useTab } from "../state/TabContext";
 import type { TabKey } from "../state/TabContext";
