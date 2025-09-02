@@ -11,6 +11,7 @@ type Volume = {
 };
 
 export default function Home(){
+  // pick latest by volumeNumber
   const list = (volumes as Volume[]).slice().sort((a,b)=> b.volumeNumber - a.volumeNumber);
   const current = list[0];
 
@@ -36,11 +37,14 @@ export default function Home(){
               <ul>
                 {current.blurb.map((item, i)=> <li key={i}>{item}</li>)}
               </ul>
-
-              <a className="readBtn" href={current.volumeUrl} rel="noopener noreferrer">
-                READ
-              </a>
             </div>
+          </div>
+
+          {/* READ centered under everything */}
+          <div className="readRow">
+            <a className="readBtn" href={current.volumeUrl} rel="noopener noreferrer">
+              READ
+            </a>
           </div>
         </section>
       )}

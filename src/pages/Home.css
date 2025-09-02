@@ -29,13 +29,13 @@
   pointer-events:none;
 }
 
-/* content layer */
+/* grid */
 .volumeInner{
   position: relative;
   display:grid;
   grid-template-columns: 230px 1fr;
   gap: 16px;
-  align-items: stretch;
+  align-items: start;
 }
 
 /* cover image */
@@ -56,7 +56,6 @@
   justify-content:flex-start;
   min-width: 0;
 }
-
 .volTitle{
   margin: 0 0 4px 0;
   font-family: 'Press Start 2P', cursive;
@@ -69,7 +68,6 @@
   letter-spacing: .2px;
   opacity: .8;
 }
-
 .volumeDetails ul{
   margin: 0 0 14px 18px;
   padding: 0;
@@ -78,9 +76,15 @@
   max-width: 60ch;
 }
 
-/* Read button — center under list, bubble style, a bit bigger to fill whitespace */
+/* READ row centered under the content */
+.readRow{
+  display:flex;
+  justify-content:center;
+  margin-top: 8px;
+}
+
+/* nav-bubble style Read button, a bit larger to fill space */
 .readBtn{
-  align-self: center;          /* centers horizontally within the details column */
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -91,7 +95,7 @@
   font-family:'Press Start 2P', cursive;
   font-size:12px;
   letter-spacing:.5px;
-  padding:14px 26px;
+  padding:14px 28px;
   border-radius:999px;
   color:#fff;
 
@@ -102,7 +106,6 @@
     0 8px 22px rgba(0,0,0,.20);
 
   transition: transform .12s ease, box-shadow .15s ease, filter .2s ease;
-  margin-top: 6px;
 }
 .readBtn:hover{
   transform: translateY(-1px);
@@ -116,5 +119,5 @@
 @media (max-width: 700px){
   .volumeInner{ grid-template-columns: 1fr; }
   .volumeCover{ aspect-ratio: 4 / 3; }
-  .readBtn{ margin-top: 10px; }
+  .readRow{ margin-top: 12px; }
 }
