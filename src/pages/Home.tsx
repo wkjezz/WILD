@@ -60,7 +60,7 @@ export default function Home(){
       {current && (
         <section
           className="volumeCard volumeCard--solid"
-          aria-label={`Current Volume ${current.volumeNumber}`}
+          aria-label={`Current Volume ${(current as any).volumeNumber}`}
         >
           <div className="volumeStack volumeStack--centered">
             <h3 className="volTitle">Current&nbsp;Volume!</h3>
@@ -69,8 +69,8 @@ export default function Home(){
             <div className="coverWrap">
               <img
                 className="volumeCover"
-                src={current.imageUrl}
-                alt={`WILD Volume ${current.volumeNumber} cover`}
+                src={(current as any).imageUrl}
+                alt={`WILD Volume ${(current as any).volumeNumber} cover`}
               />
               <span className="stickerWrap" aria-hidden="true">
     <img
@@ -87,7 +87,7 @@ export default function Home(){
             </ul>
 
             <div className="readRow">
-              <a className="readBtn" href={current.volumeUrl} rel="noopener noreferrer">
+              <a className="readBtn" href={(current as any).volumeUrl} rel="noopener noreferrer">
                 READ
               </a>
             </div>
