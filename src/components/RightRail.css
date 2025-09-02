@@ -90,11 +90,37 @@
   .polaroidPhoto{ aspect-ratio: 4 / 3; }
 }
 
-/* BEGIN: RIGHT-RAIL-ROWS */
+
+/* BEGIN: COMPACT-RAIL (no inner scrollbar, compact polaroid) */
 .rightRail{
   display: grid;
-  grid-template-rows: repeat(3, 1fr) !important; /* 3 equal-height panels */
+  grid-template-rows: auto 1fr 1fr; /* small polaroid, other two share remaining space */
   gap: 16px;
-  height: 100%;
+  height: auto;
+  max-height: none;
+  overflow: visible;               /* no inner scrollbars */
 }
-/* END: RIGHT-RAIL-ROWS */
+
+/* Make the polaroid a little shorter and tighter */
+.polaroid{
+  padding: 10px 10px 12px;         /* down from 12/16px */
+  border-radius: 12px;
+}
+.polaroidPhoto{
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 11;           /* slightly shorter than 4/3 for a tighter column */
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+.polaroidCaption{
+  margin-top: 8px;
+  font-size: 18px;                 /* down from ~22px */
+}
+
+/* Let sticky note + notes expand naturally inside their grid rows */
+.postit, .notes{
+  min-height: 0;                   /* allow flexing without forcing overflow */
+}
+/* END: COMPACT-RAIL */
