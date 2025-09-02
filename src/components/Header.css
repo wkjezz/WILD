@@ -426,86 +426,91 @@ html, body{
 /* body{ overflow-y: auto; overflow-clip-margin: content-box; } */
 
 
-/* BEGIN: NAV-GLITTER-HEARTS */
-/* Make sure pill clips its effects */
+/* BEGIN: NAV-GLITTER-HEARTS =========================================== */
+
+/* Keep all effects inside the rounded pill */
 .nav .tab{
   position: relative;
   border-radius: 999px;
-  overflow: hidden;                 /* <- keeps glitter/glow INSIDE */
-  isolation: isolate;               /* contain stacking contexts */
+  overflow: hidden;           /* clip glitter & glow */
+  isolation: isolate;         /* contain stacking contexts */
 }
 
-/* Outer glow (tightened so it lives inside the pill) */
+/* Soft inner glow (stays inside pill) */
 .nav .tab::before{
   content:"";
-  position:absolute; inset: -2px;   /* shallow so it won’t bleed */
+  position:absolute; inset:-2px;
   border-radius: inherit;
-  background: radial-gradient(120px 120px at 20% 20%, rgba(0,255,255,.18), transparent 60%),
-              radial-gradient(140px 140px at 80% 80%, rgba(255,0,255,.18), transparent 65%);
+  background:
+    radial-gradient(120px 120px at 20% 30%, rgba(0,255,255,.20), transparent 60%),
+    radial-gradient(140px 140px at 80% 70%, rgba(255,0,255,.20), transparent 65%);
   filter: blur(8px);
-  opacity: .9;
+  opacity: .95;
   z-index: 0;
   pointer-events: none;
 }
 
-/* Glitter overlay — only obvious on active */
+/* Glitter (4 layers = more particles) */
 @keyframes glitterDrift{
-  0%   { background-position:   0px 0px,   0px 0px,   0px 0px; }
-  100% { background-position: 140px 0px, -110px 0px, 0px -140px; }
+  0%   { background-position:   0px 0px,   0px 0px,   0px 0px,   0px 0px; }
+  100% { background-position: 160px 0px, -135px 0px,  0px -160px,  90px 0px; }
 }
 @keyframes glitterPulse{
-  0%,100%{ opacity:.70 }
-  50%    { opacity:.92 }
+  0%,100%{ opacity:.75 }
+  50%    { opacity:.97 }
 }
 
-/* default: subtle / off */
+/* Default (inactive) — barely there */
 .nav .tab::after{
   content:"";
   position:absolute; inset:0;
   border-radius: inherit;
-  z-index: 1;                       /* above base, below label */
+  z-index: 1;                 /* under label hearts */
   pointer-events: none;
-  opacity: .0;
+  opacity: .05;               /* nearly invisible when inactive */
   background:
-    radial-gradient(circle at 20% 35%, rgba(255,122,214,.9) 0 3px, rgba(255,122,214,0) 4px),
-    radial-gradient(circle at 70% 60%, rgba(255,179,234,.8) 0 3px, rgba(255,179,234,0) 4px),
-    radial-gradient(circle at 45% 75%, rgba(255,143,223,.65) 0 2.5px, rgba(255,143,223,0) 3.5px);
-  background-size: 90px 90px, 110px 110px, 95px 95px;
+    radial-gradient(circle at 18% 32%, rgba(255,122,214,.95) 0 2.8px, rgba(255,122,214,0) 3.6px),
+    radial-gradient(circle at 72% 58%, rgba(255,179,234,.9) 0 2.8px, rgba(255,179,234,0) 3.6px),
+    radial-gradient(circle at 45% 77%, rgba(255,143,223,.8) 0 2.4px, rgba(255,143,223,0) 3.2px),
+    radial-gradient(circle at 30% 15%, rgba(255,200,245,.75) 0 2.2px, rgba(255,200,245,0) 3.0px);
+  background-size: 58px 58px, 64px 64px, 52px 52px, 70px 70px; /* tighter grid => more dots */
   background-repeat: repeat;
-  mask: linear-gradient(#000, #000); /* ensure full coverage, no edge bleed */
+  mask: linear-gradient(#000, #000); /* full coverage, no edge fade */
 }
 
-/* ACTIVE: brighter, animated, still clipped */
+/* Active — bright + animated */
 .nav .tab.active::after{
-  opacity: .88 !important;
-  animation: glitterDrift 16s linear infinite, glitterPulse 8s ease-in-out infinite;
+  opacity: .93 !important;
+  animation: glitterDrift 14s linear infinite, glitterPulse 7s ease-in-out infinite;
 }
 
-/* Label hearts — reserve width so buttons don’t jump */
+/* Label + hearts */
 .nav .tab .label{
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  z-index: 2;                       /* above glitter */
-  letter-spacing: .06em;            /* keeps that arcade vibe */
-  text-transform: uppercase;        /* matches your style */
+  z-index: 2;                 /* above glitter */
+  letter-spacing: .06em;
+  text-transform: uppercase;
 }
 
-/* Hearts exist always (opacity 0) so width stays constant */
+/* Hearts are always present (opacity 0) to preserve width */
 .nav .tab .label::before,
 .nav .tab .label::after{
   content: "❤";
-  font-size: .9em;
+  font-family: "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji","Twemoji Mozilla", system-ui, sans-serif;
+  font-size: .95em;
   line-height: 1;
-  color: #ff66d6;
+  color: #ff51d6;             /* punchier pink */
+  filter: drop-shadow(0 0 2px rgba(255,0,170,.6));
   opacity: 0;
   transition: opacity .25s ease;
 }
 
-/* Show hearts only on active */
+/* Show hearts on active */
 .nav .tab.active .label::before,
 .nav .tab.active .label::after{
   opacity: 1;
 }
-/* END: NAV-GLITTER-HEARTS */
+/* END: NAV-GLITTER-HEARTS ============================================= */
