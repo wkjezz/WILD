@@ -11,79 +11,68 @@
   font-family: 'Chakra Petch', system-ui, sans-serif;
 }
 
-/* Volume card */
+/* Volume card — solid (no faded overlay) and roomier */
 .volumeCard{
   position: relative;
   border-radius: 14px;
   background: #fff;
-  padding: 14px;
+  padding: 20px;
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+  box-shadow: 0 10px 26px rgba(0,0,0,.12);
+  min-height: 560px; /* keeps it substantial */
 }
-.volumeCard::before{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.8));
-  pointer-events:none;
-}
+.volumeCard::before{ content: none; } /* kill the faded overlay */
+.volumeCard--solid{ background: #fff; }
 
-/* grid */
-.volumeInner{
-  position: relative;
-  display:grid;
-  grid-template-columns: 230px 1fr;
-  gap: 16px;
-  align-items: start;
-}
-
-/* cover image */
-.volumeCover{
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  border-radius: 10px;
-  display:block;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
-}
-
-/* details column */
-.volumeDetails{
+/* Stacked content */
+.volumeStack{
   display:flex;
   flex-direction:column;
-  align-items:flex-start;
-  justify-content:flex-start;
-  min-width: 0;
+  gap: 10px;
+  max-width: 960px;
 }
+
 .volTitle{
-  margin: 0 0 4px 0;
+  margin: 0;
   font-family: 'Press Start 2P', cursive;
-  font-size: 16px;
+  font-size: 18px;
 }
 .date{
-  margin: 0 0 10px 0;
+  margin: -2px 0 6px 0;
   font-family: 'Chakra Petch', system-ui, sans-serif;
   font-size: 14px;
   letter-spacing: .2px;
-  opacity: .8;
+  opacity: .85;
 }
-.volumeDetails ul{
+
+/* Cover image: large and clean */
+.volumeCover{
+  width: clamp(260px, 55%, 420px);
+  max-width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.16);
+  margin: 6px 0 10px 0;
+}
+
+/* Blurb list */
+.blurbList{
   margin: 0 0 14px 18px;
   padding: 0;
   font-family: 'Chakra Petch', system-ui, sans-serif;
-  line-height: 1.55;
-  max-width: 60ch;
+  line-height: 1.6;
+  max-width: 68ch;
 }
 
-/* READ row centered under the content */
+/* READ centered under the stack */
 .readRow{
   display:flex;
   justify-content:center;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
-/* nav-bubble style Read button, a bit larger to fill space */
+/* Bubble READ button */
 .readBtn{
   display:inline-flex;
   align-items:center;
@@ -115,9 +104,11 @@
     0 12px 26px rgba(0,0,0,.25);
 }
 
-/* responsive stack */
+/* Mobile tweaks */
 @media (max-width: 700px){
-  .volumeInner{ grid-template-columns: 1fr; }
-  .volumeCover{ aspect-ratio: 4 / 3; }
-  .readRow{ margin-top: 12px; }
+  .volumeCard{ min-height: 0; }
+  .volumeCover{
+    width: min(100%, 420px);
+    aspect-ratio: 4 / 3;
+  }
 }
