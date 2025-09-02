@@ -1,0 +1,2 @@
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{aspect-ratio:1/1;border:2px dashed #ddd;border-radius:12px;display:grid;place-items:center}
