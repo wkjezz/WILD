@@ -1,7 +1,9 @@
 import "./RightRail.css";
 import { POLAROID_IMG } from "../assets/polaroid-img";
 import eventsData from "../data/events.json";
+import notesData from "../data/notes.json";
 
+/* ===== Types ===== */
 type EventItem = {
   id: string;
   name: string;
@@ -10,9 +12,16 @@ type EventItem = {
   endsAt?: string;  // ISO (unused for display)
   location?: string;
   description?: string;
-  contact?: string; // telephone as plain string "(332) 555-0142"
+  contact?: string; // telephone as "(332) 555-0142"
 };
 
+type NoteItem = {
+  id: number;
+  releaseDate: string;
+  description: string; // comma-separated lines
+};
+
+/* ===== Event helpers (EST, next upcoming) ===== */
 function toEST(d: Date) {
   return new Date(d.toLocaleString("en-US", { timeZone: "America/New_York" }));
 }
@@ -22,15 +31,13 @@ function parseEST(iso: string) {
 function pickNextEvent(now = new Date()): EventItem | null {
   const estNow = toEST(now);
   const list = (eventsData as EventItem[])
-    .filter((e) => parseEST(e.startsAt).getTime() >= estNow.getTime() - 60 * 60 * 1000)
-    .sort(
-      (a, b) =>
-        parseEST(a.startsAt).getTime() - parseEST(b.startsAt).getTime()
-    );
+    // upcoming, or within the last hour
+    .filter(e => parseEST(e.startsAt).getTime() >= estNow.getTime() - 60 * 60 * 1000)
+    .sort((a, b) => parseEST(a.startsAt).getTime() - parseEST(b.startsAt).getTime());
   return list.length ? list[0] : null;
 }
 
-/** Sat, Sep 20 · 7:00 PM EST */
+/** e.g. "Sat, Sep 20 · 7:00 PM EST" */
 function formatEventWhen(iso: string) {
   const dt = parseEST(iso);
   const datePart = dt.toLocaleDateString("en-US", {
@@ -47,8 +54,21 @@ function formatEventWhen(iso: string) {
   return `${datePart} · ${timePart} EST`;
 }
 
+/* ===== Notes helper (pick latest by highest id) ===== */
+function pickLatestNote(): NoteItem | null {
+  const notes = (notesData as NoteItem[]).slice().sort((a, b) => b.id - a.id);
+  return notes.length ? notes[0] : null;
+}
+
 export default function RightRail() {
   const evt = pickNextEvent();
+  const note = pickLatestNote();
+
+  const noteLines =
+    note?.description
+      ?.split(",")
+      .map(s => s.trim())
+      .filter(Boolean) ?? [];
 
   return (
     <aside className="rightRail">
@@ -68,14 +88,8 @@ export default function RightRail() {
             <>
               <div className="evtLine">{formatEventWhen(evt.startsAt)}</div>
               {evt.location && <div className="evtLine">{evt.location}</div>}
-
-              {evt.description && (
-                <p className="evtDesc">{evt.description}</p>
-              )}
-
-              {evt.contact && (
-                <div className="evtLine">Call: {evt.contact}</div>
-              )}
+              {evt.description && <p className="evtDesc">{evt.description}</p>}
+              {evt.contact && <div className="evtLine">Call: {evt.contact}</div>}
             </>
           ) : (
             <>
@@ -88,10 +102,35 @@ export default function RightRail() {
         </div>
       </div>
 
-      {/* Lined notes */}
+      {/* Lined notes / Sneak Peek */}
       <div className="notes tiltLeftSmall">
-        <h3>NOTES FOR NEXT VOLUME</h3>
-        <p>Another flexible panel.</p>
+        <h3>Sneak Peek!</h3>
+
+        {note ? (
+          <div className="notesBody">
+            {/* Header stays at the top */}
+            <div className="notesRelease">Release Date: {note.releaseDate}</div>
+
+            {/* List vertically centered in remaining space */}
+            <div className="notesListCenter">
+              <ul className="notesList">
+                {noteLines.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className="notesBody">
+            <div className="notesRelease">Release Date: TBA</div>
+            <div className="notesListCenter">
+              <ul className="notesList">
+                <li>More details soon…</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
         <div className="lines" aria-hidden />
       </div>
     </aside>

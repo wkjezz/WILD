@@ -163,3 +163,52 @@
 .postit h3 {
   margin: 0 0 8px;
 }
+
+/* Handwriting font + black text for notes body */
+.handwrite {
+  font-family: "Caveat", cursive;
+  color: #111;
+}
+
+/* Notes layout: keep header at top, center list vertically in remaining space */
+.notes {
+  display: flex;
+  flex-direction: column;
+}
+
+.notes h3 {
+  margin: 0 0 8px;
+}
+
+.notesBody {
+  position: relative;
+  z-index: 1;          /* above the lined background */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;       /* allow flex children to size properly */
+  gap: 6px;
+}
+
+.notesRelease {
+  font-weight: 600;
+  margin: 0;           /* top-aligned just under the h3 */
+}
+
+/* This region expands and centers the list vertically */
+.notesListCenter {
+  flex: 1;
+  display: flex;
+  align-items: center; /* vertical centering */
+  min-height: 0;
+}
+
+/* Handwriting, black text */
+.notesList {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  font-family: "Caveat", cursive;
+  color: #111;
+  font-size: 20px;
+  line-height: 1.35;
+}
