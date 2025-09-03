@@ -1,29 +1,27 @@
-import EventCard from "./EventCard";
-import "./EventCard.css";
-import "./RightRail.css";
-import { POLAROID_IMG } from "../assets/polaroid-img";
+import React from "react";
 
-export default function RightRail() {
+export default function RightRail(){
   return (
     <aside className="rightRail">
-      {/* Polaroid */}
-      <div className="polaroid tiltLeft">
-        <div className="polaroidTape" aria-hidden />
-        <img className="polaroidPhoto" src={POLAROID_IMG} alt="Mr Softy Top" />
-        <div className="polaroidCaption">Mr Softy Top</div>
+      {/* Dynamic A — Polaroid staff card (placeholder) */}
+      <div className="rrCard">
+        <h3>Staff Member</h3>
+        <p>Mr Softy Top</p>
       </div>
 
-      {/* Post-it */}
-      <div className="postit tiltRight">
-        <h3>UPCOMING EVENT!</h3>
-        <p>Newsletter or trending feed.</p>
+      {/* Dynamic B — Events post-it (placeholder, no flyer bg) */}
+      <div className="rrCard">
+        <h3>Upcoming Event!</h3>
+        <p>Event details will appear here.</p>
       </div>
 
-      {/* Lined notes */}
-      <div className="notes tiltLeftSmall">
-        <h3>NOTES FOR NEXT VOLUME</h3>
-        <p>Another flexible panel.</p>
-        <div className="lines" aria-hidden />
+      {/* Dynamic C — Lined notes (placeholder) */}
+      <div className="rrCard">
+        <h3>Notes for next volume</h3>
+        <ul>
+          <li>Teaser #1</li>
+          <li>Teaser #2</li>
+        </ul>
       </div>
     </aside>
   );
