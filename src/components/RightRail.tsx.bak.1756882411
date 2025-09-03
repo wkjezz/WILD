@@ -1,0 +1,23 @@
+import React from "react";
+import EventCard from "./EventCard";
+
+export default function RightRail() {
+  return (
+    <aside className="rightRail">
+      {/* Polaroid card (kept simple; customize as needed) */}
+      <div className="rrCard polaroid">
+        <div className="polaroidPhoto" aria-hidden="true" />
+        <div className="polaroidCaption">Mr Softy Top</div>
+      </div>
+
+      {/* Event card (reads from src/data/events.json in EST) */}
+      <EventCard />
+
+      {/* Notes card */}
+      <div className="rrCard noteCard">
+        <h3>NOTES FOR NEXT VOLUME</h3>
+        <p>Another flexible panel.</p>
+      </div>
+    </aside>
+  );
+}

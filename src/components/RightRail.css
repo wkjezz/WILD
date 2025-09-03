@@ -123,4 +123,30 @@
 .postit, .notes{
   min-height: 0;                   /* allow flexing without forcing overflow */
 }
-/* END: COMPACT-RAIL */
+
+/* Keep <h3> at top; center the details vertically in the remaining space */
+.postit {
+  display: flex;
+  flex-direction: column;
+}
+
+.postit h3 {
+  margin: 0 0 8px;
+}
+
+/* The wrapper that vertically centers the paragraph */
+.postit-body {
+  flex: 1;                      /* take the remaining height */
+  display: flex;
+  align-items: center;          /* vertical centering */
+}
+
+.postit-body p {
+  margin: 0;                    /* no extra top/bottom space */
+}
+
+/* Optional: style for plain phone text */
+.evtPhone {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
