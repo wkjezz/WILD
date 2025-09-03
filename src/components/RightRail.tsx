@@ -1,41 +1,50 @@
 import "./RightRail.css";
 import { POLAROID_IMG } from "../assets/polaroid-img";
-import { pickNextEvent, type EventItem } from "./EventCard";
+import eventsData from "../data/events.json";
 
-function formatEasternRange(e: EventItem) {
-  const start = new Date(e.startsAt);
-  if (isNaN(start.getTime())) return "";
+type EventItem = {
+  id: string;
+  name: string;
+  flyer?: string;
+  startsAt: string; // ISO
+  endsAt?: string;  // ISO (unused for display)
+  location?: string;
+  description?: string;
+  contact?: string; // telephone as plain string "(332) 555-0142"
+};
 
-  const dateFmt: Intl.DateTimeFormatOptions = {
+function toEST(d: Date) {
+  return new Date(d.toLocaleString("en-US", { timeZone: "America/New_York" }));
+}
+function parseEST(iso: string) {
+  return toEST(new Date(iso));
+}
+function pickNextEvent(now = new Date()): EventItem | null {
+  const estNow = toEST(now);
+  const list = (eventsData as EventItem[])
+    .filter((e) => parseEST(e.startsAt).getTime() >= estNow.getTime() - 60 * 60 * 1000)
+    .sort(
+      (a, b) =>
+        parseEST(a.startsAt).getTime() - parseEST(b.startsAt).getTime()
+    );
+  return list.length ? list[0] : null;
+}
+
+/** Sat, Sep 20 · 7:00 PM EST */
+function formatEventWhen(iso: string) {
+  const dt = parseEST(iso);
+  const datePart = dt.toLocaleDateString("en-US", {
     timeZone: "America/New_York",
     weekday: "short",
     month: "short",
     day: "numeric",
-  };
-  const timeFmtWithTz: Intl.DateTimeFormatOptions = {
+  });
+  const timePart = dt.toLocaleTimeString("en-US", {
     timeZone: "America/New_York",
     hour: "numeric",
     minute: "2-digit",
-    timeZoneName: "short",
-  };
-  const timeFmt: Intl.DateTimeFormatOptions = {
-    timeZone: "America/New_York",
-    hour: "numeric",
-    minute: "2-digit",
-  };
-
-  const datePart = new Intl.DateTimeFormat("en-US", dateFmt).format(start);
-  const startPart = new Intl.DateTimeFormat("en-US", timeFmtWithTz).format(start);
-
-  if (e.endsAt) {
-    const end = new Date(e.endsAt);
-    if (!isNaN(end.getTime())) {
-      const endPart = new Intl.DateTimeFormat("en-US", timeFmt).format(end);
-      const tz = startPart.match(/[A-Z]{2,4}$/)?.[0] ?? "";
-      return `${datePart} · ${startPart.replace(/\s*[A-Z]{2,4}$/, "")}–${endPart} ${tz}`.trim();
-    }
-  }
-  return `${datePart} · ${startPart}`;
+  });
+  return `${datePart} · ${timePart} EST`;
 }
 
 export default function RightRail() {
@@ -50,36 +59,33 @@ export default function RightRail() {
         <div className="polaroidCaption">Mr Softy Top</div>
       </div>
 
-      {/* Post-it */}
+      {/* Post-it / Upcoming Event */}
       <div className="postit tiltRight">
-        {evt ? (
-          <>
-            <h3>{evt.name}</h3>
-            {/* Vertically-centered body */}
-            <div className="postit-body">
-              <p>
-                {formatEasternRange(evt)}
-                {evt.location ? <><br />{evt.location}</> : null}
-                {evt.description ? <><br />{evt.description}</> : null}
-                {evt.contact ? (
-                  <>
-                    <br />
-                    Contact: <span className="evtPhone">{evt.contact}</span>
-                  </>
-                ) : null}
-              </p>
-            </div>
-          </>
-        ) : (
-          <>
-            <h3>Got an Event?</h3>
-            <div className="postit-body">
-              <p>
-                Contact a member of wild staff at <span className="evtPhone">(505) 505-5555</span> to get it on our calendar
-              </p>
-            </div>
-          </>
-        )}
+        <h3>{evt ? evt.name : "GOT AN EVENT?"}</h3>
+
+        <div className="postitBody">
+          {evt ? (
+            <>
+              <div className="evtLine">{formatEventWhen(evt.startsAt)}</div>
+              {evt.location && <div className="evtLine">{evt.location}</div>}
+
+              {evt.description && (
+                <p className="evtDesc">{evt.description}</p>
+              )}
+
+              {evt.contact && (
+                <div className="evtLine">Call: {evt.contact}</div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="evtLine">
+                Contact a member of WILD staff to get it on our calendar
+              </div>
+              <div className="evtLine">Call: (505) 505-5555</div>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Lined notes */}

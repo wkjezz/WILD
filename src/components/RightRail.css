@@ -123,30 +123,43 @@
 .postit, .notes{
   min-height: 0;                   /* allow flexing without forcing overflow */
 }
+/* Keep title at top, center the rest vertically */
+.postit{
+  position: relative;
+  background:#cfe7ff;
+  border-radius:14px;
+  padding:14px 16px 18px;
+  box-shadow:0 10px 24px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
+  display:flex;
+  flex-direction:column;
+}
 
-/* Keep <h3> at top; center the details vertically in the remaining space */
-.postit {
+.postit h3{
+  margin:0 0 8px;
+  font-family:'Press Start 2P', cursive;
+  font-size:14px;
+}
+
+/* Stack the lines and give consistent spacing */
+.postitBody {
   display: flex;
   flex-direction: column;
+  gap: 10px;             /* small gaps for date/location/call */
+  padding-block: 4px;    /* a touch of breathing room */
 }
 
+/* Each line (date, location, call) stays tight, no default paragraph gaps */
+.evtLine {
+  margin: 0;
+}
+
+/* Make the description stand out with blank lines above and below */
+.evtDesc {
+  margin: 14px 0;        /* <-- this creates the separation you want */
+  line-height: 1.55;
+}
+
+/* Optional: keep the heading a bit apart from the body */
 .postit h3 {
   margin: 0 0 8px;
-}
-
-/* The wrapper that vertically centers the paragraph */
-.postit-body {
-  flex: 1;                      /* take the remaining height */
-  display: flex;
-  align-items: center;          /* vertical centering */
-}
-
-.postit-body p {
-  margin: 0;                    /* no extra top/bottom space */
-}
-
-/* Optional: style for plain phone text */
-.evtPhone {
-  font-weight: 600;
-  letter-spacing: 0.3px;
 }
